@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace RunGroupWebApp.Models
 {
-    public class AppUser : IdentityUser
+    public class AppUser
     {
+        [Key]
+        public int Id { get; set; }
         public int? Pace { get; set; }
         public int? Mileare { get; set; }
         public Address? Addres { get; set; }
