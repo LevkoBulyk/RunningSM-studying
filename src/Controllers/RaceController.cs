@@ -2,25 +2,27 @@
 using Microsoft.EntityFrameworkCore;
 using RunGroupWebApp.Data;
 using RunGroupWebApp.Models;
+using RunGroupWebApp.RepoInterfaces;
 
 namespace RunGroupWebApp.Controllers
 {
     public class RaceController : Controller
     {
-        private readonly AppDBContext _context;
-        public RaceController(AppDBContext context)
+        private readonly IRaceRepository _raceRepository;
+
+        public RaceController(IRaceRepository raceRepository)
         {
-            _context = context;
+            _raceRepository = raceRepository;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var races = _context.Races.ToList();
+            var races = await _raceRepository.GetAll();
             return View(races);
         }
 
-        public IActionResult Detail(int id)
+        public async Task<IActionResult> Detail(int id)
         {
-            Race race = _context.Races.Include(a => a.Address).FirstOrDefault(r => r.Id == id);
+            Race race = await _raceRepository.GetByIdAsync(id);
             return View(race);
         }
     }
