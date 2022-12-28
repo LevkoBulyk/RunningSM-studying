@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RunGroupWebApp.Data;
-using RunGroupWebApp.Models;
 
 namespace RunGroupWebApp.Controllers
 {
