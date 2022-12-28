@@ -12,8 +12,8 @@ using RunGroupWebApp.Data;
 namespace RunGroupWebApp.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20221228092703_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20221228103152_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,8 +58,15 @@ namespace RunGroupWebApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AddresId")
+                    b.Property<int?>("AddressId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
 
                     b.Property<int?>("Mileare")
                         .HasColumnType("int");
@@ -67,9 +74,13 @@ namespace RunGroupWebApp.Migrations
                     b.Property<int?>("Pace")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("AddresId");
+                    b.HasIndex("AddressId");
 
                     b.ToTable("AppUser");
                 });
@@ -120,10 +131,6 @@ namespace RunGroupWebApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
@@ -147,6 +154,8 @@ namespace RunGroupWebApp.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AddressId");
+
                     b.HasIndex("AppUserId");
 
                     b.ToTable("Races");
@@ -154,11 +163,11 @@ namespace RunGroupWebApp.Migrations
 
             modelBuilder.Entity("RunGroupWebApp.Models.AppUser", b =>
                 {
-                    b.HasOne("RunGroupWebApp.Models.Address", "Addres")
+                    b.HasOne("RunGroupWebApp.Models.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddresId");
+                        .HasForeignKey("AddressId");
 
-                    b.Navigation("Addres");
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("RunGroupWebApp.Models.Club", b =>
@@ -180,11 +189,19 @@ namespace RunGroupWebApp.Migrations
 
             modelBuilder.Entity("RunGroupWebApp.Models.Race", b =>
                 {
+                    b.HasOne("RunGroupWebApp.Models.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("RunGroupWebApp.Models.AppUser", "AppUser")
                         .WithMany("Races")
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Address");
 
                     b.Navigation("AppUser");
                 });

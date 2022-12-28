@@ -5,7 +5,7 @@
 namespace RunGroupWebApp.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,16 +31,19 @@ namespace RunGroupWebApp.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
                     Pace = table.Column<int>(type: "int", nullable: true),
                     Mileare = table.Column<int>(type: "int", nullable: true),
-                    AddresId = table.Column<int>(type: "int", nullable: true)
+                    AddressId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AppUser", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AppUser_Addresses_AddresId",
-                        column: x => x.AddresId,
+                        name: "FK_AppUser_Addresses_AddressId",
+                        column: x => x.AddressId,
                         principalTable: "Addresses",
                         principalColumn: "Id");
                 });
@@ -84,13 +87,18 @@ namespace RunGroupWebApp.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AddressId = table.Column<int>(type: "int", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RaceCategory = table.Column<int>(type: "int", nullable: false),
                     AppUserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Races", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Races_Addresses_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Addresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Races_AppUser_AppUserId",
                         column: x => x.AppUserId,
@@ -100,9 +108,9 @@ namespace RunGroupWebApp.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AppUser_AddresId",
+                name: "IX_AppUser_AddressId",
                 table: "AppUser",
-                column: "AddresId");
+                column: "AddressId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Clubs_AddressId",
@@ -113,6 +121,11 @@ namespace RunGroupWebApp.Migrations
                 name: "IX_Clubs_AppUserId",
                 table: "Clubs",
                 column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Races_AddressId",
+                table: "Races",
+                column: "AddressId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Races_AppUserId",

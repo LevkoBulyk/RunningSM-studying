@@ -14,7 +14,7 @@ namespace RunGroupWebApp.Models
         public string Image { get; set; }
         [ForeignKey("Address")]
         public int AddressId { get; set;}
-        public string Address { get; set; }
+        public Address Address { get; set; }
         public RaceCategory RaceCategory { get; set; }
         [ForeignKey("AppUser")]
         public int AppUserId { get; set;}
