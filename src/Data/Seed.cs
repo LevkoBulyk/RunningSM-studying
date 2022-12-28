@@ -40,7 +40,7 @@ namespace RunGroopWebApp.Data
                             ClubCategory = ClubCategory.Endurance,
                             Address = new Address()
                             {
-                                Street = "123 Main St",
+                                Street = "124 Main St",
                                 City = "Charlotte",
                                 State = "NC"
                             }
@@ -53,7 +53,7 @@ namespace RunGroopWebApp.Data
                             ClubCategory = ClubCategory.Trail,
                             Address = new Address()
                             {
-                                Street = "123 Main St",
+                                Street = "125 Main St",
                                 City = "Charlotte",
                                 State = "NC"
                             }
@@ -66,7 +66,7 @@ namespace RunGroopWebApp.Data
                             ClubCategory = ClubCategory.City,
                             Address = new Address()
                             {
-                                Street = "123 Main St",
+                                Street = "126 Main St",
                                 City = "Michigan",
                                 State = "NC"
                             }
@@ -85,6 +85,7 @@ namespace RunGroopWebApp.Data
                             Image = "https://www.eatthis.com/wp-content/uploads/sites/4/2020/05/running.jpg?quality=82&strip=1&resize=640%2C360",
                             Description = "This is the description of the first race",
                             RaceCategory = RaceCategory.Marathon,
+                            AddressId = 1,
                             Address = new Address()
                             {
                                 Street = "123 Main St",
@@ -98,10 +99,10 @@ namespace RunGroopWebApp.Data
                             Image = "https://www.eatthis.com/wp-content/uploads/sites/4/2020/05/running.jpg?quality=82&strip=1&resize=640%2C360",
                             Description = "This is the description of the first race",
                             RaceCategory = RaceCategory.Ultra,
-                            AddressId = 5,
+                            AddressId = 3,
                             Address = new Address()
                             {
-                                Street = "123 Main St",
+                                Street = "125 Main St",
                                 City = "Charlotte",
                                 State = "NC"
                             }
