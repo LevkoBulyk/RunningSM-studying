@@ -26,7 +26,9 @@
                                     <a asp-controller="Club" asp-action="Detail" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">
                                         View
                                     </a>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">تعديل</button>
+                                    <a asp-controller="Club" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">
+                                        Edit
+                                    </a>
                                 </div>
                                 <small class="text-muted">@item.ClubCategory</small>
                             </div>

@@ -32,7 +32,7 @@ namespace RunGroupWebApp.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost, ActionName("Create")]
         public async Task<IActionResult> Create(Club club)
         {
             if (!ModelState.IsValid)
@@ -40,6 +40,27 @@ namespace RunGroupWebApp.Controllers
                 return View(club);
             }
             _clubRepository.Add(club);
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            Club club = await _clubRepository.GetByIdAsync(id);
+            if (club == null)
+            {
+                return View("Error");
+            }
+            return View(club);
+        }
+
+        [HttpPost, ActionName("Edit")]
+        public async Task<IActionResult> Edit(int id, Club club)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(club);
+            }
+            _clubRepository.Update(club);
             return RedirectToAction("Index");
         }
     }
