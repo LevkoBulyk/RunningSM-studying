@@ -6,7 +6,7 @@ namespace RunGroupWebApp.Models
     public class AppUser : IdentityUser
     {
         public int? Pace { get; set; }
-        public int? Mileare { get; set; }
+        public int? Mileage { get; set; }
         [ForeignKey("Address")]
         public int? AddressId { get; set; }
         public Address? Address { get; set; }

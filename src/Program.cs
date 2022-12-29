@@ -18,6 +18,7 @@ builder.Services.AddDbContext<AppDBContext>(options =>
 builder.Services.AddScoped<IClubRepository, ClubRepository>();
 builder.Services.AddScoped<IRaceRepository, RaceRepository>();
 builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddIdentity<AppUser, IdentityRole>().
     AddEntityFrameworkStores<AppDBContext>();
 builder.Services.AddMemoryCache();
