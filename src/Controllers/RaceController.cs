@@ -41,5 +41,26 @@ namespace RunGroupWebApp.Controllers
             _raceRepository.Add(race);
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            Race race = await _raceRepository.GetByIdAsync(id);
+            if (race == null)
+            {
+                return View("Error");
+            }
+            return View(race);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Race race)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(race);
+            }
+            _raceRepository.Update(race);
+            return RedirectToAction("Index");
+        }
     }
 }
