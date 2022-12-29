@@ -15,7 +15,7 @@ namespace RunGroupWebApp.Models
         public int AddressId { get; set; }
         public Address? Address { get; set; }
         public ClubCategory ClubCategory { get; set; }
-        public int? AppUserId { get; set; }
+        public string? AppUserId { get; set; }
         public AppUser? AppUser { get; set; }
     }
 }

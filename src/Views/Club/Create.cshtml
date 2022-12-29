@@ -1,41 +1,43 @@
 ﻿@using RunGroupWebApp.Data.Enum;
-@model Club
+@using RunGroupWebApp.ViewModels;
+@model CreateClubViewModel
 
 <form method="post" asp-action="Create">
+    <input asp-for="AppUserId" class="visually-hidden" value="@Model.AppUserId" />
     <div class="form-group">
         <label asp-for="Title">Title</label>
         <input asp-for="Title" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="enter title">
-        <span asp-validation-for="Title" class="tex-danger"></span>
+        <span asp-validation-for="Title" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Description">Description</label>
         <input asp-for="Description" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="give description of the club">
-        <span asp-validation-for="Description" class="tex-danger"></span>
+        <span asp-validation-for="Description" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Image">Image</label>
         <input asp-for="Image" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="insert link to image location">
-        <span asp-validation-for="Image" class="tex-danger"></span>
+        <span asp-validation-for="Image" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="ClubCategory">Category</label>
         <select asp-for="ClubCategory" asp-items="@Html.GetEnumSelectList<ClubCategory>()" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"></select>
-        <span asp-validation-for="ClubCategory" class="tex-danger"></span>
+        <span asp-validation-for="ClubCategory" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Address.State">Sate</label>
         <input asp-for="Address.State" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="state">
-        <span asp-validation-for="Address.State" class="tex-danger"></span>
+        <span asp-validation-for="Address.State" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Address.City">City</label>
         <input asp-for="Address.City" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="city">
-        <span asp-validation-for="Address.City" class="tex-danger"></span>
+        <span asp-validation-for="Address.City" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Address.Street">Street</label>
         <input asp-for="Address.Street" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="street">
-        <span asp-validation-for="Address.Street" class="tex-danger"></span>
+        <span asp-validation-for="Address.Street" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary">Create Club</button>
 </form>

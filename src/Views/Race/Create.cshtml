@@ -1,11 +1,13 @@
 ﻿@using RunGroupWebApp.Data.Enum;
-@model Race
+@using RunGroupWebApp.ViewModels
+@model CreateRaceViewModel
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
 <form method="post" asp-action="Create">
+    <input asp-for="AppUserId" class="visually-hidden" value="@Model.AppUserId" />
     <div class="form-group">
         <label asp-for="Title">Title</label>
         <input asp-for="Title" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="title">
@@ -29,17 +31,17 @@
      <div class="form-group">
         <label asp-for="Address.State">Sate</label>
         <input asp-for="Address.State" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="state">
-        <span asp-validation-for="Address.State" class="tex-danger"></span>
+        <span asp-validation-for="Address.State" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Address.City">City</label>
         <input asp-for="Address.City" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="city">
-        <span asp-validation-for="Address.City" class="tex-danger"></span>
+        <span asp-validation-for="Address.City" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Address.Street">Street</label>
         <input asp-for="Address.Street" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="street">
-        <span asp-validation-for="Address.Street" class="tex-danger"></span>
+        <span asp-validation-for="Address.Street" class="text-danger"></span>
     </div> 
     <button type="submit" class="btn btn-primary">Create Race</button>
 </form>

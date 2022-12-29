@@ -3,16 +3,19 @@ using Microsoft.EntityFrameworkCore;
 using RunGroupWebApp.Data;
 using RunGroupWebApp.Models;
 using RunGroupWebApp.RepoInterfaces;
+using RunGroupWebApp.ViewModels;
 
 namespace RunGroupWebApp.Controllers
 {
     public class ClubController : Controller
     {
         private readonly IClubRepository _clubRepository;
+        private readonly IHttpContextAccessor _contextAccessor;
 
-        public ClubController(IClubRepository clubRepository)
+        public ClubController(IClubRepository clubRepository, IHttpContextAccessor contextAccessor)
         {
             this._clubRepository = clubRepository;
+            _contextAccessor = contextAccessor;
         }
 
         public async Task<IActionResult> Index()
@@ -29,17 +32,33 @@ namespace RunGroupWebApp.Controllers
 
         public async Task<IActionResult> Create()
         {
-            return View();
+            var userId = _contextAccessor.HttpContext.User.GetId();
+            var club = new CreateClubViewModel()
+            {
+                AppUserId = userId
+            };
+            return View(club);
         }
 
         [HttpPost, ActionName("Create")]
-        public async Task<IActionResult> Create(Club club)
+        public async Task<IActionResult> Create(CreateClubViewModel club)
         {
             if (!ModelState.IsValid)
             {
                 return View(club);
             }
-            _clubRepository.Add(club);
+
+            Club c = new Club()
+            {
+                Title = club.Title,
+                Description = club.Description,
+                Image = club.Image,
+                AppUserId = club.AppUserId,
+                Address = club.Address,
+                ClubCategory = club.ClubCategory
+            };
+
+            _clubRepository.Add(c);
             return RedirectToAction("Index");
         }
 

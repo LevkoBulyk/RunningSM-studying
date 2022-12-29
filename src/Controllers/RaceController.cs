@@ -3,16 +3,19 @@ using Microsoft.EntityFrameworkCore;
 using RunGroupWebApp.Data;
 using RunGroupWebApp.Models;
 using RunGroupWebApp.RepoInterfaces;
+using RunGroupWebApp.ViewModels;
 
 namespace RunGroupWebApp.Controllers
 {
     public class RaceController : Controller
     {
         private readonly IRaceRepository _raceRepository;
+        private readonly IHttpContextAccessor _contextAccessor;
 
-        public RaceController(IRaceRepository raceRepository)
+        public RaceController(IRaceRepository raceRepository, IHttpContextAccessor contextAccessor)
         {
             _raceRepository = raceRepository;
+            this._contextAccessor = contextAccessor;
         }
         public async Task<IActionResult> Index()
         {
@@ -28,17 +31,30 @@ namespace RunGroupWebApp.Controllers
 
         public async Task<IActionResult> Create()
         {
-            return View();
+            var userId = _contextAccessor.HttpContext.User.GetId();
+            CreateRaceViewModel race = new CreateRaceViewModel() { AppUserId = userId };
+            return View(race);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Race race)
+        public async Task<IActionResult> Create(CreateRaceViewModel race)
         {
             if (!ModelState.IsValid)
             {
                 return View(race);
             }
-            _raceRepository.Add(race);
+
+            Race r = new Race()
+            {
+                Title = race.Title,
+                Description = race.Description,
+                Address = race.Address,
+                Image = race.Image,
+                RaceCategory = race.RaceCategory,
+                AppUserId = race.AppUserId
+            };
+
+            _raceRepository.Add(r);
             return RedirectToAction("Index");
         }
 
