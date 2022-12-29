@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RunGroopWebApp.Data;
 using RunGroupWebApp.Data;
+using RunGroupWebApp.Models;
 using RunGroupWebApp.RepoInterfaces;
 using RunGroupWebApp.Repository;
 
@@ -14,6 +17,12 @@ builder.Services.AddDbContext<AppDBContext>(options =>
 });
 builder.Services.AddScoped<IClubRepository, ClubRepository>();
 builder.Services.AddScoped<IRaceRepository, RaceRepository>();
+builder.Services.AddIdentity<AppUser, IdentityRole>().
+    AddEntityFrameworkStores<AppDBContext>();
+builder.Services.AddMemoryCache();
+builder.Services.AddSession();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).
+    AddCookie();
 
 var app = builder.Build();
 
