@@ -63,5 +63,17 @@ namespace RunGroupWebApp.Controllers
             _clubRepository.Update(club);
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var club = await _clubRepository.GetByIdAsync(id);
+            if (club != null)
+            {
+                _clubRepository.Delete(club);
+            }
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

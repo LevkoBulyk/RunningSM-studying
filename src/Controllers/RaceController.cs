@@ -62,5 +62,15 @@ namespace RunGroupWebApp.Controllers
             _raceRepository.Update(race);
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var race = await _raceRepository.GetByIdAsync(id);
+            if (race != null)
+            {
+                _raceRepository.Delete(race);
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
