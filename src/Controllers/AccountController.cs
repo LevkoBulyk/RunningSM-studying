@@ -51,5 +51,46 @@ namespace RunGroupWebApp.Controllers
             TempData["Error"] = "No user found. Please, check email";
             return View(loginViewModel);
         }
+
+        public IActionResult Register()
+        {
+            return View(new RegisterViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(registerViewModel);
+            }
+
+            var user = await _userManager.FindByEmailAsync(registerViewModel.Email);
+
+            if (user != null)
+            {
+                TempData["Error"] = "User with this email address is already registered";
+                return View(registerViewModel);
+            }
+            
+            var newUser = new AppUser()
+            {
+                Email = registerViewModel.Email,
+                UserName = registerViewModel.Email.Substring(0, registerViewModel.Email.IndexOf('@')),
+            };
+
+            var newUserResponse = await _userManager.CreateAsync(newUser, registerViewModel.Password);
+
+            if (newUserResponse.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(newUser, UserRoles.User);
+                return RedirectToAction("Index", "Home");
+            }
+
+            TempData["Error"] = "Failed to register the user";
+            return View(registerViewModel);
+        }
+
+        
     }
 }
