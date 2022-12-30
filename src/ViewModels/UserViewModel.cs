@@ -1,4 +1,6 @@
-﻿namespace RunGroupWebApp.ViewModels
+﻿using RunGroupWebApp.Models;
+
+namespace RunGroupWebApp.ViewModels
 {
     public class UserViewModel
     {
@@ -6,5 +8,6 @@
         public string UserName { get; set; }
         public int? Pace { get; set; }
         public int? Mileage { get; set; }
+        public Address? Address { get; set; }
     }
 }

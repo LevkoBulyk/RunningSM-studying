@@ -1,4 +1,5 @@
-﻿using RunGroupWebApp.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using RunGroupWebApp.Data;
 using RunGroupWebApp.Models;
 using RunGroupWebApp.RepoInterfaces;
 
@@ -28,12 +29,12 @@ namespace RunGroupWebApp.Repository
 
         public async Task<IEnumerable<AppUser>> GetAllUsers()
         {
-            return _context.Users.ToList();
+            return _context.Users.Include(a => a.Address).ToList();
         }
 
         public async Task<AppUser> GetUserById(string id)
         {
-            return _context.Users.FirstOrDefault(u => u.Id.Equals(id));
+            return _context.Users.Include(a => a.Address).FirstOrDefault(u => u.Id.Equals(id));
         }
 
         public bool Save()
