@@ -12,30 +12,31 @@
                     {
                         <div class="col-md-4">
                             <div class="card mb-4 shadow-sm">
-                                <label class="card-text"><b>Name: </b>@item.UserName</label>
-                                <label class="card-text"><b>Mileage: </b>@item.Mileage</label>
-                                <label class="card-text"><b>Pace: </b>@item.Pace</label>
-                                @if (item.Address != null)
-                                {
-                                    <label class="card-text"><b>Address: </b>
-                                        @item.Address.City (@item.Address.State) @item.Address.Street
-                                    </label>
-                                }
-                            </div>
-                            <div class="row align-content-center">
-                                <div class="btn-group">
-                                    <a asp-controller="User" asp-action="Detail" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">
-                                        View
-                                    </a>
-                                    @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
-                                    {
-                                        <a asp-controller="User" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">
-                                            Edit
+                                <div class="fw-bold row">
+                                    <p class="card-text col-7">Name</p>
+                                    <p class="card-text col-3">Mileage</p>
+                                    <p class="card-text col-2">Pace</p>
+                                </div>
+                                <div class="row">
+                                    <p class="card-text col-7">@item.UserName</p>
+                                    <p class="card-text col-3">@item.Mileage</p>
+                                    <p class="card-text col-2">@item.Pace</p>
+                                </div>
+                                <div class="row align-content-center">
+                                    <div class="btn-group">
+                                        <a asp-controller="User" asp-action="Detail" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">
+                                            View
                                         </a>
-                                        <a asp-controller="User" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">
-                                            Delete
-                                        </a>
-                                    }
+                                        @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                                        {
+                                            <a asp-controller="User" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">
+                                                Edit
+                                            </a>
+                                            <a asp-controller="User" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">
+                                                Delete
+                                            </a>
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>

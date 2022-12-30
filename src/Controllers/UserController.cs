@@ -25,8 +25,7 @@ namespace RunGroupWebApp.Controllers
                     Id = user.Id,
                     UserName = user.UserName,
                     Pace = user.Pace,
-                    Mileage = user.Mileage,
-                    Address = user.Address
+                    Mileage = user.Mileage
                 });
             }
             return View(data);
