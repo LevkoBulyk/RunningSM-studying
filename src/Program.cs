@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using RunGroopWebApp.Data;
 using RunGroupWebApp.Data;
@@ -11,6 +12,20 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+var supportedCultures = new[] { "en", "pl", "ukr" };
+builder.Services.AddLocalization(opt => opt.ResourcesPath = "Resources");
+builder.Services.AddMvc()
+       .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+       .AddDataAnnotationsLocalization();
+builder.Services.Configure<RequestLocalizationOptions>(opt =>
+{
+    opt.SetDefaultCulture(supportedCultures[0])
+       .AddSupportedCultures(supportedCultures)
+       .AddSupportedUICultures(supportedCultures);
+
+});
+
 builder.Services.AddDbContext<AppDBContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -49,6 +64,12 @@ app.UseRouting();
 
 app.UseAuthorization();
 app.UseAuthentication();
+
+var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
+    .AddSupportedCultures(supportedCultures)
+    .AddSupportedUICultures(supportedCultures);
+
+app.UseRequestLocalization(localizationOptions);
 
 app.MapControllerRoute(
     name: "default",
