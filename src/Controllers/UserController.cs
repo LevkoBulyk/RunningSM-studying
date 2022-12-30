@@ -30,5 +30,11 @@ namespace RunGroupWebApp.Controllers
             }
             return View(data);
         }
+
+        public async Task<IActionResult> Detail(string id)
+        {
+            var user = await _userRepository.GetUserById(id);
+            return View(user);
+        }
     }
 }
