@@ -32,7 +32,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddLocalization(opt => opt.ResourcesPath = "Resorces");
 builder.Services.Configure<RequestLocalizationOptions>(opt =>
 {
-    var cultures = new List<CultureInfo>() { 
+    var cultures = new List<CultureInfo>() {
         new CultureInfo("en-US"),
         new CultureInfo("ua-UA")
     };
