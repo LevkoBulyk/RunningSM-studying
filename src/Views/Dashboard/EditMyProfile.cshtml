@@ -1,0 +1,22 @@
+﻿@using RunGroupWebApp.ViewModels
+@model UserViewModel
+
+<form method="post" asp-action="EditMyProfile" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Id" value="@Model.Id"/>
+    <div class="form-group">
+        <label asp-for="UserName">Name</label>
+        <input asp-for="UserName" class="form-control" placeholder="title" value="@Model.UserName"/>
+        <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Mileage">Mileage</label>
+        <input asp-for="Mileage" class="form-control" placeholder="description" value="@Model.Mileage" />
+        <span asp-validation-for="Mileage" class="text-danger"></span>
+    </div>
+    <div class="form-group" >
+        <label asp-for="Pace">Pace</label>
+        <input asp-for="Pace" class="form-control" placeholder="description" value="@Model.Pace"/>
+        <span asp-validation-for="Pace" class="text-danger"></span>
+    </div>
+    <button type="s ubmit" class="btn btn-primary">Save Changes</button>
+</form>

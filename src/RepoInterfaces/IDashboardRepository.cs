@@ -6,5 +6,7 @@ namespace RunGroupWebApp.RepoInterfaces
     {
         Task<List<Race>> GetAllUserRaces();
         Task<List<Club>> GetAllUserClubs();
+        Task<AppUser> GetUserById(string id);
+        bool UpdateUser(AppUser user);
     }
 }
