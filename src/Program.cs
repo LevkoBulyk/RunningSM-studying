@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using RunGroopWebApp.Data;
 using RunGroupWebApp.Data;
 using RunGroupWebApp.Models;
 using RunGroupWebApp.RepoInterfaces;
 using RunGroupWebApp.Repository;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,12 +36,24 @@ builder.Services.AddScoped<IClubRepository, ClubRepository>();
 builder.Services.AddScoped<IRaceRepository, RaceRepository>();
 builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
 builder.Services.AddIdentity<AppUser, IdentityRole>().
     AddEntityFrameworkStores<AppDBContext>();
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).
     AddCookie();
+
+builder.Services.AddLocalization(opt => opt.ResourcesPath = "Resorces");
+builder.Services.Configure<RequestLocalizationOptions>(opt =>
+{
+    var cultures = new List<CultureInfo>() {
+        new CultureInfo("en-US"),
+        new CultureInfo("ua-UA")
+    };
+    opt.DefaultRequestCulture = new RequestCulture("en-US");
+    opt.SupportedCultures = cultures;
+});
 
 var app = builder.Build();
 
